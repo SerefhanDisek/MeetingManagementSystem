@@ -1,7 +1,22 @@
+using MeetingManagementSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// DbContext ekleme
+builder.Services.AddDbContext<MeetingManagementDbContext>(options =>
+{
+    options.UseSqlServer("DESKTOP-N1QFE9C\\SQLEXPRESS;Database=MeetingManagementSystemDB;Trusted_Connection=True;TrustServerCertificate=True;");
+});
+
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 

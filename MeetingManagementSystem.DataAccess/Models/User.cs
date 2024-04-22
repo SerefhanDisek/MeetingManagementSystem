@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MeetingManagementSystem.DataAccess.Models
 {
-    internal class User
+    public class User
     {
         [Key]
         public int Id { get; set; }
