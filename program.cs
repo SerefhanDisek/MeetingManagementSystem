@@ -13,6 +13,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 })
 
 var app = builder.Build();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "JwtBearer";
+    options.DefaultChallengeScheme = "JwtBearer";
+})
+.AddJwtBearer("JwtBearer", options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret_key")),
+        Audience = "admin",
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
