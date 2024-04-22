@@ -45,13 +45,9 @@
     <script>
         $(document).ready(function () {
             $('#login-form').submit(function (event) {
-                event.preventDefault(); // Formun otomatik olarak submit olmasını engelle
+                event.preventDefault(); 
                 var email = $('#email').val();
                 var password = $('#password').val();
-
-                // Burada giriş bilgilerini kontrol edip uygun bir işlem yapabilirsiniz
-                // Örneğin, AJAX kullanarak sunucuya giriş isteği gönderebilirsiniz
-                // Ve ardından sunucudan dönen cevaba göre işlem yapabilirsiniz
             });
         });
     </script>

@@ -4,7 +4,7 @@ namespace MeetingManagementSystem.Web.Controllers
 {
     public class MeetingsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Meetings()
         {
             return View();
         }
