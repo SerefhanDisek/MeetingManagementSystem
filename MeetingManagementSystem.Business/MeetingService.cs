@@ -6,7 +6,7 @@ using MeetingManagementSystem.DataAccess.Models;
 
 namespace MeetingManagementSystem.Business
 {
-    public class MeetingService
+    public class MeetingService : IMeetingService
     {
         private readonly MeetingManagementDbContext _dbContext;
 
@@ -70,16 +70,8 @@ namespace MeetingManagementSystem.Business
             _dbContext.SaveChanges();
         }
 
-        public void DeleteMeeting(Meeting existingMeeting)
-        {
-            throw new NotImplementedException();
-        }
 
-        public interface IMeetingService
-        {
-            List<Meeting> GetAllMeetings() 
-            { throw new NotImplementedException(); }
-        }
+
     }
 }
 

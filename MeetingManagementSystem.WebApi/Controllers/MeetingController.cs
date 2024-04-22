@@ -10,11 +10,11 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class MeetingsController : ControllerBase
     {
-        private readonly MeetingService _meetingService;
+        private readonly IMeetingService _meetingService;
 
         public MeetingsController(IMeetingService meetingService)
         {
-            _meetingService = (MeetingService?)meetingService;
+            _meetingService = meetingService;
         }
 
         [HttpGet]
@@ -65,13 +65,8 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteMeeting(int id)
         {
-            var existingMeeting = _meetingService.GetMeetingById(id);
-            if (existingMeeting == null)
-            {
-                return NotFound();
-            }
 
-            _meetingService.DeleteMeeting(existingMeeting);
+            _meetingService.DeleteMeeting(id);
             return NoContent();
         }
     }

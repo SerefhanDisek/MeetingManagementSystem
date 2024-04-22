@@ -5,7 +5,7 @@ using MeetingManagementSystem.DataAccess.Models;
 
 namespace MeetingManagementSystem.Business.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly MeetingManagementDbContext _dbContext;
 
@@ -13,7 +13,6 @@ namespace MeetingManagementSystem.Business.Services
         {
             _dbContext = dbContext;
         }
-
         public async Task RegisterUserAsync(User user)
         {
             _dbContext.Users.Add(user);
