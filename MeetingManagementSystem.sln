@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		program.cs = program.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponseRequest", "ResponseRequest\ResponseRequest.csproj", "{5EABED81-3273-4E1D-B75E-960DAECF531F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingManagementSystem.ResponseRequest", "ResponseRequest\MeetingManagementSystem.ResponseRequest.csproj", "{5EABED81-3273-4E1D-B75E-960DAECF531F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

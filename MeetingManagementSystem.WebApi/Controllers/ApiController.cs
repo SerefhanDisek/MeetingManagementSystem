@@ -2,6 +2,7 @@
 using System;
 using MeetingManagementSystem.DataAccess.Models;
 using MeetingManagementSystem.Business;
+using static MeetingManagementSystem.Business.MeetingService;
 
 namespace API.Controllers
 {
@@ -13,7 +14,7 @@ namespace API.Controllers
 
         public MeetingsController(IMeetingService meetingService)
         {
-            _meetingService = meetingService;
+            _meetingService = (MeetingService?)meetingService;
         }
 
         [HttpGet]
@@ -35,10 +36,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMeeting(Meeting meeting)
+        public IActionResult GetMeetings()
         {
-            var createdMeeting = _meetingService.CreateMeeting(meeting);
-            return CreatedAtAction(nameof(GetMeetingById), new { id = createdMeeting.Id }, createdMeeting);
+            var meetings = GetMeetings(); 
+            return Ok(meetings);
         }
 
         [HttpPut("{id}")]
@@ -74,5 +75,7 @@ namespace API.Controllers
             return NoContent();
         }
     }
+
+
 }
 

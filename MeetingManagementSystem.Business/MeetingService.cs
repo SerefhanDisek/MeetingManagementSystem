@@ -1,59 +1,88 @@
-﻿using MeetingManagementSystem.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Business.Services
+using MeetingManagementSystem.DataAccess.Models;
+
+namespace MeetingManagementSystem.Business
 {
-    public class Commands
+    public class MeetingService
     {
         private readonly MeetingManagementDbContext _dbContext;
 
-        public Commands(MeetingManagementDbContext dbContext)
+        public MeetingService(MeetingManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<List<Meeting>> GetAllMeetingsAsync()
+        public List<Meeting> GetAllMeetings()
         {
-            return await _dbContext.Meetings.ToListAsync();
+            return _dbContext.Meetings.ToList();
         }
 
-        public async Task<Meeting> GetMeetingByIdAsync(int id)
+        public Meeting GetMeetingById(int id)
         {
-            return await _dbContext.Meetings.FirstOrDefaultAsync(m => m.Id == id);
+            return _dbContext.Meetings.FirstOrDefault(m => m.Id == id);
         }
 
-        public async Task CreateMeetingAsync(Meeting meeting)
+        public void CreateMeeting(Meeting meeting)
         {
-            if (string.IsNullOrEmpty(meeting.Title) || meeting.StartTime >= meeting.EndTime)
+            if (meeting == null)
             {
-                throw new InvalidOperationException("Geçersiz toplantı bilgileri.");
+                throw new ArgumentNullException(nameof(meeting));
             }
-
 
             _dbContext.Meetings.Add(meeting);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
-        public async Task UpdateMeetingAsync(Meeting meeting)
+        public void UpdateMeeting(Meeting updatedMeeting)
         {
-            
-
-            _dbContext.Meetings.Update(meeting);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task DeleteMeetingAsync(int id)
-        {
-            var meeting = await _dbContext.Meetings.FirstOrDefaultAsync(m => m.Id == id);
-            if (meeting != null)
+            if (updatedMeeting == null)
             {
-                _dbContext.Meetings.Remove(meeting);
-                await _dbContext.SaveChangesAsync();
+                throw new ArgumentNullException(nameof(updatedMeeting));
             }
+
+            var existingMeeting = _dbContext.Meetings.FirstOrDefault(m => m.Id == updatedMeeting.Id);
+            if (existingMeeting == null)
+            {
+                throw new InvalidOperationException("Meeting not found");
+            }
+
+            existingMeeting.Title = updatedMeeting.Title;
+            existingMeeting.Description = updatedMeeting.Description;
+            existingMeeting.StartTime = updatedMeeting.StartTime;
+            existingMeeting.EndTime = updatedMeeting.EndTime;
+            existingMeeting.Organizer = updatedMeeting.Organizer;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteMeeting(int id)
+        {
+            var meeting = _dbContext.Meetings.FirstOrDefault(m => m.Id == id);
+            if (meeting == null)
+            {
+                throw new InvalidOperationException("Meeting not found");
+            }
+
+            _dbContext.Meetings.Remove(meeting);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteMeeting(Meeting existingMeeting)
+        {
+            throw new NotImplementedException();
+        }
+
+        public interface IMeetingService
+        {
+            List<Meeting> GetAllMeetings() 
+            { throw new NotImplementedException(); }
         }
     }
 }
+
 
 
 
