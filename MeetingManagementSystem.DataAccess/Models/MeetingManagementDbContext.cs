@@ -11,6 +11,8 @@ namespace MeetingManagementSystem.DataAccess.Models
 
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+
 
     }
 }

@@ -1,33 +1,37 @@
 ﻿using MediatR;
-using MeetingManagementSystem.DataAccess.Models;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
-public class CreateMeetingCommand : IRequest<CreateMeetingResponse>
+namespace MeetingManagementSystem.WebApi
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime EndTime { get; set; }
-    public int RoomId { get; set; }
-}
+    public class AuthService
+    {
+        private readonly IConfiguration _config;
 
-public class GetMeetingCommand : IRequest<Meeting>
-{
-    public int MeetingId { get; set; }
-}
+        public AuthService(IConfiguration config)
+        {
+            _config = config;
+        }
 
-public class UpdateMeetingCommand : IRequest<UpdateMeetingResponse>
-{
-    public int MeetingId { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime EndTime { get; set; }
-    public int RoomId { get; set; }
-}
+        public string GenerateToken(string userId)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-public class DeleteMeetingCommand : IRequest
-{
-    public int MeetingId { get; set; }
-}
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: new[] { new Claim("userId", userId) },
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: creds
+            );
 
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+    }
+}
 

@@ -1,49 +1,59 @@
 ﻿using MeetingManagementSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Business.Services
 {
-    public class MeetingService
+    public class Commands
     {
         private readonly MeetingManagementDbContext _dbContext;
 
-        public MeetingService(MeetingManagementDbContext dbContext)
+        public Commands(MeetingManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public List<Meeting> GetAllMeetings()
+        public async Task<List<Meeting>> GetAllMeetingsAsync()
         {
-            return _dbContext.Meetings.ToList();
+            return await _dbContext.Meetings.ToListAsync();
         }
 
-        public Meeting GetMeetingById(int id)
+        public async Task<Meeting> GetMeetingByIdAsync(int id)
         {
-            return _dbContext.Meetings.FirstOrDefault(m => m.Id == id);
+            return await _dbContext.Meetings.FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public void CreateMeeting(Meeting meeting)
+        public async Task CreateMeetingAsync(Meeting meeting)
         {
+            if (string.IsNullOrEmpty(meeting.Title) || meeting.StartTime >= meeting.EndTime)
+            {
+                throw new InvalidOperationException("Geçersiz toplantı bilgileri.");
+            }
+
+
             _dbContext.Meetings.Add(meeting);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void UpdateMeeting(Meeting meeting)
+        public async Task UpdateMeetingAsync(Meeting meeting)
         {
+            
+
             _dbContext.Meetings.Update(meeting);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void DeleteMeeting(int id)
+        public async Task DeleteMeetingAsync(int id)
         {
-            var meeting = _dbContext.Meetings.FirstOrDefault(m => m.Id == id);
+            var meeting = await _dbContext.Meetings.FirstOrDefaultAsync(m => m.Id == id);
             if (meeting != null)
             {
                 _dbContext.Meetings.Remove(meeting);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
-
-        
     }
 }
+
+
 

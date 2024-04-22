@@ -7,14 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetingManagementSystem.Bus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetingManagementSystem.DataAccess", "MeetingManagementSystem.DataAccess\MeetingManagementSystem.DataAccess.csproj", "{CD89D968-CC62-4C3A-B4F2-3FB914588F8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingManagementSystem.Web", "MeetingManagementSystem.Web\MeetingManagementSystem.Web.csproj", "{C1B2CBBE-6EA3-4103-BB24-4B57AFEA0BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetingManagementSystem.Web", "MeetingManagementSystem.Web\MeetingManagementSystem.Web.csproj", "{C1B2CBBE-6EA3-4103-BB24-4B57AFEA0BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingManagementSystem.WebApi", "MeetingManagementSystem.WebApi\MeetingManagementSystem.WebApi.csproj", "{24F64111-9E1F-4336-B35D-98FD4D64F149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetingManagementSystem.WebApi", "MeetingManagementSystem.WebApi\MeetingManagementSystem.WebApi.csproj", "{24F64111-9E1F-4336-B35D-98FD4D64F149}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E1B4A77-BECA-438E-A08B-DC55281992C3}"
 	ProjectSection(SolutionItems) = preProject
 		program.cs = program.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponseRequest", "ResponseRequest\ResponseRequest.csproj", "{5EABED81-3273-4E1D-B75E-960DAECF531F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{24F64111-9E1F-4336-B35D-98FD4D64F149}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24F64111-9E1F-4336-B35D-98FD4D64F149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24F64111-9E1F-4336-B35D-98FD4D64F149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EABED81-3273-4E1D-B75E-960DAECF531F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EABED81-3273-4E1D-B75E-960DAECF531F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EABED81-3273-4E1D-B75E-960DAECF531F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EABED81-3273-4E1D-B75E-960DAECF531F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
