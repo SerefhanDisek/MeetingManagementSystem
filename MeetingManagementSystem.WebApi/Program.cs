@@ -10,8 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IMeetingService, MeetingService>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<MeetingManagementDbContext>();
 builder.Services.AddDbContext<MeetingManagementDbContext>(options =>
 {
@@ -20,6 +18,8 @@ builder.Services.AddDbContext<MeetingManagementDbContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IMeetingService, MeetingService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = "JwtBearer";

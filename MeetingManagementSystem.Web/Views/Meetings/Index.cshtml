@@ -1,0 +1,44 @@
+﻿@model MeetingManagementSystem.Web.Models.MeetingViewModel
+
+@{
+    ViewData["Title"] = "Create Meeting";
+}
+
+<h1>Create Meeting</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title">Meeting Title:</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartTime">Start Time:</label>
+        <input asp-for="StartTime" type="datetime-local" class="form-control" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndTime">End Time:</label>
+        <input asp-for="EndTime" type="datetime-local" class="form-control" />
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Organizer">Organizer:</label>
+        <input asp-for="Organizer" class="form-control" />
+        <span asp-validation-for="Organizer" class="text-danger"></span>
+    </div>
+    @* <div class="form-group"> *@
+        @* <label asp-for="RoomId">Meeting Room:</label> *@
+        @* <input asp-for="RoomId" class="form-control" /> *@
+        @* <span asp-validation-for="RoomId" class="text-danger"></span> *@
+    @* </div> *@
+    <!-- Add other input fields as needed -->
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+

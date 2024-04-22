@@ -1,76 +1,126 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using MeetingManagementSystem.DataAccess.Models;
 using MeetingManagementSystem.Business;
-using static MeetingManagementSystem.Business.MeetingService;
 
-namespace API.Controllers
+namespace MeetingManagementSystem.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class MeetingsController : ControllerBase
+    public class MeetingController : Controller
     {
         private readonly IMeetingService _meetingService;
 
-        public MeetingsController(IMeetingService meetingService)
+        public MeetingController(IMeetingService meetingService)
         {
             _meetingService = meetingService;
         }
 
-        [HttpGet]
-        public IActionResult GetAllMeetings()
+        // GET: Meetings
+        public IActionResult Index()
         {
             var meetings = _meetingService.GetAllMeetings();
-            return Ok(meetings);
+            return View(meetings);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetMeetingById(int id)
+        // GET: Meetings/Details/5
+        public IActionResult Details(int? id)
         {
-            var meeting = _meetingService.GetMeetingById(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var meeting = _meetingService.GetMeetingById(id.Value);
             if (meeting == null)
             {
                 return NotFound();
             }
-            return Ok(meeting);
+
+            return View(meeting);
         }
 
+        // GET: Meetings/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Meetings/Create
         [HttpPost]
-        public IActionResult GetMeetings()
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Meeting meeting)
         {
-            var meetings = GetMeetings(); 
-            return Ok(meetings);
+            if (ModelState.IsValid)
+            {
+                _meetingService.CreateMeeting(meeting);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(meeting);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateMeeting(int id, Meeting meeting)
+        // GET: Meetings/Edit/5
+        public IActionResult Edit(int? id)
         {
-            if (id != meeting.Id)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                _meetingService.UpdateMeeting(meeting);
-            }
-            catch (Exception)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return NoContent();
+            var meeting = _meetingService.GetMeetingById(id.Value);
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+            return View(meeting);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteMeeting(int id)
+        // POST: Meetings/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Meeting meeting)
         {
+            if (id != meeting.Id)
+            {
+                return NotFound();
+            }
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _meetingService.UpdateMeeting(meeting);
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(meeting);
+        }
+
+        // GET: Meetings/Delete/5
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var meeting = _meetingService.GetMeetingById(id.Value);
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+
+            return View(meeting);
+        }
+
+        // POST: Meetings/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
             _meetingService.DeleteMeeting(id);
-            return NoContent();
+            return RedirectToAction(nameof(Index));
         }
     }
-
-
 }
-
