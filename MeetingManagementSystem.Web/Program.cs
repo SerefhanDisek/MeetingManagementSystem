@@ -9,14 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// DbContext ekleme
-builder.Services.AddDbContext<MeetingManagementDbContext>(options =>
-{
-    options.UseSqlServer("Server=DESKTOP-N1QFE9C\\SQLEXPRESS;Database=MeetingManagementDbContext;Trusted_Connection=True;TrustServerCertificate=True;");
-});
-
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(options =>
 {
