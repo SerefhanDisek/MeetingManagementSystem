@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<MeetingManagementDbContext>(options =>
 {
-    options.UseSqlServer("DESKTOP-N1QFE9C\\SQLEXPRESS;Database=MeetingManagementSystemDB;Trusted_Connection=True;TrustServerCertificate=True;");
+    options.UseSqlServer("Server=DESKTOP-N1QFE9C\\SQLEXPRESS;Database=MeetingManagementSystemDB;Trusted_Connection=True;TrustServerCertificate=True;");
 })
 
 var app = builder.Build();

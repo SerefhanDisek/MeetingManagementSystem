@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 // DbContext ekleme
 builder.Services.AddDbContext<MeetingManagementDbContext>(options =>
 {
-    options.UseSqlServer("DESKTOP-N1QFE9C\\SQLEXPRESS;Database=MeetingManagementDb;Trusted_Connection=True;TrustServerCertificate=True;");
+    options.UseSqlServer("Server=DESKTOP-N1QFE9C\\SQLEXPRESS;Database=MeetingManagementDbContext;Trusted_Connection=True;TrustServerCertificate=True;");
 });
 
 
